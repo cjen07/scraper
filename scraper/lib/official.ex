@@ -30,7 +30,7 @@ defmodule Official do
     url
   end
 
-  def test_bing_on_products(extra \\ "", cnt \\ nil) do
+  def bing_on_products(extra \\ "", cnt \\ nil) do
     extra =
       case extra do
         "" -> ""
