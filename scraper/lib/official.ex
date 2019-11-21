@@ -1,7 +1,7 @@
 defmodule Official do
   # import Meeseeks.CSS
   import Meeseeks.XPath
-  alias Meeseeks.Result
+  # alias Meeseeks.Result
   import Wallaby.Browser
   alias Wallaby.Query
   
@@ -10,7 +10,7 @@ defmodule Official do
   @en_button Query.css("#est_en")
   @submit_button Query.css("#sb_form_go")
 
-  def bing(name \\ "ActionIQ", cnt \\ nil) do
+  def search_by_bing(name \\ "ActionIQ", cnt \\ nil) do
     {:ok, user} = Wallaby.start_session
     session =
       user
@@ -37,7 +37,7 @@ defmodule Official do
         _ -> " " <> extra
       end
     Scraper.products()
-    |> Enum.map(fn x -> bing(x <> extra, cnt) end)
+    |> Enum.map(fn x -> search_by_bing(x <> extra, cnt) end)
   end
 
   defp fetch_url(html, number, session, cnt, urls) do
@@ -48,7 +48,7 @@ defmodule Official do
       is_integer(cnt) and length(urls) >= cnt ->
         urls
       true ->
-        result = Meeseeks.all(html, xpath("//*[@id='b_results']/li[#{number}]/div[1]/div/cite"))
+        result = Meeseeks.all(html, xpath("//*[@id='b_results']/li[#{number}]/h2/a"))
         cond do
           result == [] -> 
             fetch_url(html, number+1, session, cnt, urls)
@@ -56,7 +56,7 @@ defmodule Official do
             url =
               result
               |> Enum.at(0)
-              |> Result.text()
+              |> Meeseeks.attr("href")
               |> delete_blanks()
               # |> get_host()
               |> (fn x -> IO.inspect(x) end).()
