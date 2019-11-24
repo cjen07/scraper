@@ -9,3 +9,5 @@ RUN apt-get update \
 COPY . .
 RUN pip install -r requirements.txt
 RUN python nltk_setup.py
+
+WORKDIR /home

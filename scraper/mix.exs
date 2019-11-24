@@ -23,7 +23,8 @@ defmodule Scraper.MixProject do
     [
       {:httpoison, "~> 1.6"},
       {:meeseeks, "~> 0.14.0"},
-      {:wallaby, "~> 0.23.0"}
+      {:wallaby, "~> 0.23.0"},
+      {:mongodb, ">= 0.0.0"}
       # {:dep_from_hexpm, "~> 0.3.0"},
       # {:dep_from_git, git: "https://github.com/elixir-lang/my_dep.git", tag: "0.1.0"}
     ]
