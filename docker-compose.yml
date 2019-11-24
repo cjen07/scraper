@@ -7,11 +7,20 @@ services:
     ports:
       - '27017-27019:27017-27019'
 
-  src:
+  scraper:
     build:
-      context: .
-      dockerfile: ./dockerfile
+      context: ./scraper
+    container_name: 'my-scraper'
     volumes:
+      - .:/home/
+    stdin_open: true
+    tty: true
+  
+  analysis:
+    build:
+      context: ./analysis
+    container_name: 'my-analysis'
+    volumes: 
       - .:/home/
     stdin_open: true
     tty: true
